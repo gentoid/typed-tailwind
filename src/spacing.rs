@@ -1,3 +1,35 @@
+use crate::core::*;
+use typed_tailwind_derive::*;
+
+#[cfg(feature = "seed_support")]
+use seed::virtual_dom::to_classes::ToClasses;
+#[cfg(feature = "seed_support")]
+use typed_tailwind_seed_derive::*;
+
+#[derive(ScreenSize)]
+#[cfg_attr(feature = "seed_support", derive(ToSeedClass))]
+pub struct Padding(pub Side, pub Space);
+
+impl From<&Padding> for String {
+    fn from(padding: &Padding) -> String {
+        match padding {
+            Padding(side, space) => format!("p{}{}", String::from(side), String::from(space)),
+        }
+    }
+}
+
+#[derive(ScreenSize)]
+#[cfg_attr(feature = "seed_support", derive(ToSeedClass))]
+pub struct Margin(pub Side, pub Space);
+
+impl From<&Margin> for String {
+    fn from(margin: &Margin) -> String {
+        match margin {
+            Margin(side, space) => format!("m{}{}", String::from(side), String::from(space)),
+        }
+    }
+}
+
 pub enum Side {
     All,
     X,
@@ -8,8 +40,8 @@ pub enum Side {
     Left,
 }
 
-impl From<Side> for String {
-    fn from(kind: Side) -> Self {
+impl From<&Side> for String {
+    fn from(kind: &Side) -> Self {
         use Side::*;
 
         match kind {
@@ -63,8 +95,8 @@ pub enum Space {
     Px,
 }
 
-impl From<Space> for String {
-    fn from(size: Space) -> Self {
+impl From<&Space> for String {
+    fn from(size: &Space) -> Self {
         use Space::*;
 
         match size {

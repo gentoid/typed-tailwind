@@ -1,13 +1,75 @@
 use crate::core::*;
 use typed_tailwind_derive::*;
 
+#[cfg(feature = "seed_support")]
+use seed::virtual_dom::to_classes::ToClasses;
+#[cfg(feature = "seed_support")]
+use typed_tailwind_seed_derive::*;
+
 #[derive(ScreenSize)]
+#[cfg_attr(feature = "seed_support", derive(ToSeedClass))]
 pub struct Width(pub Size);
 
 impl From<&Width> for String {
     fn from(width: &Width) -> Self {
         match width {
             Width(size) => format!("width{}", String::from(size)),
+        }
+    }
+}
+
+#[cfg_attr(feature = "seed_support", derive(ToSeedClass))]
+pub struct MinWidth(pub MinWidthAt);
+
+impl From<&MinWidth> for String {
+    fn from(width: &MinWidth) -> String {
+        match width {
+            MinWidth(size) => format!("width{}", String::from(size)),
+        }
+    }
+}
+
+#[cfg_attr(feature = "seed_support", derive(ToSeedClass))]
+pub struct MaxWidth(pub MaxWidthAt);
+
+impl From<&MaxWidth> for String {
+    fn from(width: &MaxWidth) -> String {
+        match width {
+            MaxWidth(size) => format!("width{}", String::from(size)),
+        }
+    }
+}
+
+#[derive(ScreenSize)]
+#[cfg_attr(feature = "seed_support", derive(ToSeedClass))]
+pub struct Height(pub Size);
+
+impl From<&Height> for String {
+    fn from(height: &Height) -> Self {
+        match height {
+            Height(size) => format!("height{}", String::from(size)),
+        }
+    }
+}
+
+#[cfg_attr(feature = "seed_support", derive(ToSeedClass))]
+pub struct MinHeight(pub MinWidth);
+
+impl From<&MinHeight> for String {
+    fn from(height: &MinHeight) -> String {
+        match height {
+            MinHeight(size) => format!("height{}", String::from(size)),
+        }
+    }
+}
+
+#[cfg_attr(feature = "seed_support", derive(ToSeedClass))]
+pub struct MaxHeight(pub MaxWidth);
+
+impl From<&MaxHeight> for String {
+    fn from(height: &MaxHeight) -> String {
+        match height {
+            MaxHeight(size) => format!("height{}", String::from(size)),
         }
     }
 }
@@ -157,16 +219,16 @@ impl From<&Size> for String {
     }
 }
 
-pub enum MinSize {
+pub enum MinWidthAt {
     _0,
     Full,
     Min,
     Max,
 }
 
-impl From<MinSize> for String {
-    fn from(size: MinSize) -> Self {
-        use MinSize::*;
+impl From<&MinWidthAt> for String {
+    fn from(size: &MinWidthAt) -> Self {
+        use MinWidthAt::*;
 
         match size {
             _0 => "-0",
@@ -178,7 +240,7 @@ impl From<MinSize> for String {
     }
 }
 
-pub enum MaxSize {
+pub enum MaxWidthAt {
     _0,
     None,
     Xs,
@@ -203,9 +265,9 @@ pub enum MaxSize {
     Screen2xl,
 }
 
-impl From<MaxSize> for String {
-    fn from(size: MaxSize) -> Self {
-        use MaxSize::*;
+impl From<&MaxWidthAt> for String {
+    fn from(size: &MaxWidthAt) -> Self {
+        use MaxWidthAt::*;
 
         match size {
             _0 => "-0",

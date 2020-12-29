@@ -1,3 +1,84 @@
+use crate::core::*;
+use typed_tailwind_derive::*;
+
+#[cfg(feature = "seed_support")]
+use seed::virtual_dom::to_classes::ToClasses;
+#[cfg(feature = "seed_support")]
+use typed_tailwind_seed_derive::*;
+
+#[cfg_attr(feature = "seed_support", derive(ToSeedClass))]
+pub struct Border(pub BorderSide, pub BorderWidth);
+
+impl From<&Border> for String {
+    fn from(border: &Border) -> String {
+        match border {
+            Border(side, width) => format!("border{}{}", String::from(side), String::from(width)),
+        }
+    }
+}
+
+#[cfg_attr(feature = "seed_support", derive(ToSeedClass))]
+pub struct Rounded(pub RadiusSide, pub RadiusSize);
+
+impl From<&Rounded> for String {
+    fn from(rounded: &Rounded) -> String {
+        match rounded {
+            Rounded(side, size) => format!("rounded{}{}", String::from(side), String::from(size)),
+        }
+    }
+}
+
+#[derive(FocusState, HoverState)]
+#[cfg_attr(feature = "seed_support", derive(ToSeedClass))]
+pub struct BorderColor(pub Color);
+
+impl From<&BorderColor> for String {
+    fn from(border_color: &BorderColor) -> String {
+        match border_color {
+            BorderColor(color) => format!("border{}", String::from(color)),
+        }
+    }
+}
+
+#[derive(FocusState)]
+#[cfg_attr(feature = "seed_support", derive(ToSeedClass))]
+pub struct RingWidth(pub RingWidthVal);
+
+impl From<&RingWidth> for String {
+    fn from(ring_width: &RingWidth) -> String {
+        match ring_width {
+            RingWidth(width) => format!("ring{}", String::from(width)),
+        }
+    }
+}
+
+pub enum RingWidthVal {
+    _0,
+    _1,
+    _2,
+    _4,
+    _8,
+    Default,
+    Inset,
+}
+
+impl From<&RingWidthVal> for String {
+    fn from(ring_width: &RingWidthVal) -> Self {
+        use RingWidthVal::*;
+
+        match ring_width {
+            _0 => "-0",
+            _1 => "-1",
+            _2 => "-2",
+            _4 => "-4",
+            _8 => "-8",
+            Default => "-default",
+            Inset => "-inset",
+        }
+        .into()
+    }
+}
+
 pub enum RadiusSize {
     None,
     Sm,
@@ -10,8 +91,8 @@ pub enum RadiusSize {
     Full,
 }
 
-impl From<RadiusSize> for String {
-    fn from(size: RadiusSize) -> Self {
+impl From<&RadiusSize> for String {
+    fn from(size: &RadiusSize) -> Self {
         use RadiusSize::*;
 
         match size {
@@ -41,8 +122,8 @@ pub enum RadiusSide {
     BottomLeft,
 }
 
-impl From<RadiusSide> for String {
-    fn from(side: RadiusSide) -> Self {
+impl From<&RadiusSide> for String {
+    fn from(side: &RadiusSide) -> Self {
         use RadiusSide::*;
 
         match side {
@@ -68,8 +149,8 @@ pub enum BorderSide {
     Left,
 }
 
-impl From<BorderSide> for String {
-    fn from(side: BorderSide) -> Self {
+impl From<&BorderSide> for String {
+    fn from(side: &BorderSide) -> Self {
         use BorderSide::*;
 
         match side {
@@ -91,8 +172,8 @@ pub enum BorderWidth {
     _8,
 }
 
-impl From<BorderWidth> for String {
-    fn from(size: BorderWidth) -> Self {
+impl From<&BorderWidth> for String {
+    fn from(size: &BorderWidth) -> Self {
         use BorderWidth::*;
 
         match size {

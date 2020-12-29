@@ -21,6 +21,47 @@ impl<'a> From<&ScreenSize<'a>> for String {
     }
 }
 
+pub trait HoverStateTrait {
+    fn hover(&self) -> HoverState;
+    fn to_string(&self) -> String;
+}
+
+#[cfg_attr(feature = "seed_support", derive(ToSeedClass))]
+pub struct HoverState<'a>(pub &'a (dyn HoverStateTrait));
+
+impl<'a> From<&HoverState<'a>> for String {
+    fn from(hover: &HoverState) -> Self {
+        match hover {
+            HoverState(inner) => format!("hover:{}", inner.to_string())
+        }
+    }
+}
+
+pub trait FocusStateTrait {
+    fn focus(&self) -> FocusState;
+    fn to_string(&self) -> String;
+}
+
+#[cfg_attr(feature = "seed_support", derive(ToSeedClass))]
+pub struct FocusState<'a>(pub &'a (dyn FocusStateTrait));
+
+impl<'a> From<&FocusState<'a>> for String {
+    fn from(focus: &FocusState) -> Self {
+        match focus {
+            FocusState(inner) => format!("focus:{}", inner.to_string())
+        }
+    }
+}
+
+#[cfg_attr(feature = "seed_support", derive(ToSeedClass))]
+pub struct Block;
+
+impl From<&Block> for String {
+    fn from(_: &Block) -> String {
+        return "block".into()
+    }
+}
+
 pub enum Screen {
     Sm,
     Md,
@@ -57,8 +98,8 @@ pub enum ColorTone {
     _900,
 }
 
-impl From<ColorTone> for String {
-    fn from(tone: ColorTone) -> Self {
+impl From<&ColorTone> for String {
+    fn from(tone: &ColorTone) -> Self {
         use ColorTone::*;
 
         match tone {
@@ -106,8 +147,8 @@ pub enum Color {
     Rose(ColorTone),
 }
 
-impl From<Color> for String {
-    fn from(color: Color) -> Self {
+impl From<&Color> for String {
+    fn from(color: &Color) -> Self {
         use Color::*;
 
         match color {

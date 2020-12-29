@@ -1,3 +1,6 @@
+use crate::core::*;
+use typed_tailwind_derive::*;
+
 #[cfg(feature = "seed_support")]
 use seed::virtual_dom::to_classes::ToClasses;
 #[cfg(feature = "seed_support")]
@@ -12,6 +15,16 @@ impl From<&Flex> for String {
     }
 }
 
+#[cfg_attr(feature = "seed_support", derive(ToSeedClass))]
+pub struct FlexWrap;
+
+impl From<&FlexWrap> for String {
+    fn from(_: &FlexWrap) -> Self {
+        "flex-wrap".into()
+    }
+}
+
+#[derive(ScreenSize)]
 #[cfg_attr(feature = "seed_support", derive(ToSeedClass))]
 pub struct FlexRow;
 
@@ -48,6 +61,7 @@ impl From<&FlexColReverse> for String {
     }
 }
 
+#[derive(ScreenSize)]
 #[cfg_attr(feature = "seed_support", derive(ToSeedClass))]
 pub struct Items(pub ItemAlign);
 
@@ -59,6 +73,17 @@ impl From<&Items> for String {
     }
 }
 
+#[derive(ScreenSize)]
+#[cfg_attr(feature = "seed_support", derive(ToSeedClass))]
+pub struct Justify(pub JustifyAt);
+
+impl From<&Justify> for String {
+    fn from(justify: &Justify) -> String {
+        match justify {
+            Justify(at) => format!("justify{}", String::from(at))
+        }
+    }
+}
 
 pub enum ItemAlign {
     Start,
@@ -83,7 +108,7 @@ impl From<&ItemAlign> for String {
     }
 }
 
-pub enum JustifyContent {
+pub enum JustifyAt {
     Start,
     End,
     Center,
@@ -92,9 +117,9 @@ pub enum JustifyContent {
     Evenly,
 }
 
-impl From<JustifyContent> for String {
-    fn from(position: JustifyContent) -> Self {
-        use JustifyContent::*;
+impl From<&JustifyAt> for String {
+    fn from(position: &JustifyAt) -> Self {
+        use JustifyAt::*;
 
         match position {
             Start => "-start",
