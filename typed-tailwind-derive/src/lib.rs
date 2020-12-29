@@ -15,6 +15,10 @@ fn impl_screen_size(ast: &syn::DeriveInput) -> TokenStream {
             fn screen(self, screen: Screen) -> ScreenSize {
                 ScreenSize(screen, Box::new(self))
             }
+
+            fn to_string(&self) -> String {
+                String::from(self)
+            }
         }
     };
     gen.into()

@@ -1,8 +1,19 @@
 pub trait ScreenSizeTrait {
     fn screen(self, screen: Screen) -> ScreenSize;
+    fn to_string(&self) -> String;
 }
 
 pub struct ScreenSize(pub Screen, pub Box<dyn ScreenSizeTrait>);
+
+impl From<ScreenSize> for String {
+    fn from(size: ScreenSize) -> Self {
+        match size {
+            ScreenSize(screen, data) => {
+                format!("{}{}", String::from(screen), data.to_string())
+            }
+        }
+    }
+}
 
 pub enum Screen {
     Sm,
