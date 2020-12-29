@@ -1,12 +1,18 @@
+#[cfg(feature = "seed_support")]
+use seed::virtual_dom::to_classes::ToClasses;
+#[cfg(feature = "seed_support")]
+use typed_tailwind_seed_derive::*;
+
 pub trait ScreenSizeTrait {
     fn screen(&self, screen: Screen) -> ScreenSize;
     fn to_string(&self) -> String;
 }
 
+#[cfg_attr(feature = "seed_support", derive(ToSeedClass))]
 pub struct ScreenSize<'a>(pub Screen, pub &'a (dyn ScreenSizeTrait));
 
-impl From<ScreenSize<'_>> for String {
-    fn from(size: ScreenSize) -> Self {
+impl<'a> From<&ScreenSize<'a>> for String {
+    fn from(size: &ScreenSize) -> Self {
         match size {
             ScreenSize(screen, data) => {
                 format!("{}{}", String::from(screen), data.to_string())
@@ -23,8 +29,8 @@ pub enum Screen {
     _2xl,
 }
 
-impl From<Screen> for String {
-    fn from(bp: Screen) -> Self {
+impl From<&Screen> for String {
+    fn from(bp: &Screen) -> Self {
         use Screen::*;
 
         match bp {
