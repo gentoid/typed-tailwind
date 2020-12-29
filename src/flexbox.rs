@@ -48,6 +48,18 @@ impl From<&FlexColReverse> for String {
     }
 }
 
+#[cfg_attr(feature = "seed_support", derive(ToSeedClass))]
+pub struct Items(pub ItemAlign);
+
+impl From<&Items> for String {
+    fn from(items: &Items) -> String {
+        match items {
+            Items(align) => format!("items{}", String::from(align))
+        }
+    }
+}
+
+
 pub enum ItemAlign {
     Start,
     End,
@@ -56,8 +68,8 @@ pub enum ItemAlign {
     Stretch,
 }
 
-impl From<ItemAlign> for String {
-    fn from(position: ItemAlign) -> Self {
+impl From<&ItemAlign> for String {
+    fn from(position: &ItemAlign) -> Self {
         use ItemAlign::*;
 
         match position {
