@@ -12,8 +12,8 @@ fn impl_screen_size(ast: &syn::DeriveInput) -> TokenStream {
     let name = &ast.ident;
     let gen = quote! {
         impl ScreenSizeTrait for #name {
-            fn screen(self, screen: Screen) -> ScreenSize {
-                ScreenSize(screen, Box::new(self))
+            fn screen(&self, screen: Screen) -> ScreenSize {
+                ScreenSize(screen, self)
             }
 
             fn to_string(&self) -> String {

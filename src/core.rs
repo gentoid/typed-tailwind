@@ -1,11 +1,11 @@
 pub trait ScreenSizeTrait {
-    fn screen(self, screen: Screen) -> ScreenSize;
+    fn screen(&self, screen: Screen) -> ScreenSize;
     fn to_string(&self) -> String;
 }
 
-pub struct ScreenSize(pub Screen, pub Box<dyn ScreenSizeTrait>);
+pub struct ScreenSize<'a>(pub Screen, pub &'a (dyn ScreenSizeTrait));
 
-impl From<ScreenSize> for String {
+impl From<ScreenSize<'_>> for String {
     fn from(size: ScreenSize) -> Self {
         match size {
             ScreenSize(screen, data) => {
