@@ -45,3 +45,25 @@ fn impl_hover_state(ast: &syn::DeriveInput) -> TokenStream {
     };
     gen.into()
 }
+
+#[proc_macro_derive(FocusState)]
+pub fn focus_state_derive(input: TokenStream) -> TokenStream {
+    let ast = syn::parse(input).unwrap();
+    impl_focus_state(&ast)
+}
+
+fn impl_focus_state(ast: &syn::DeriveInput) -> TokenStream {
+    let name = &ast.ident;
+    let gen = quote! {
+        impl FocusStateTrait for #name {
+            fn focus(&self) -> FocusState {
+                FocusState(self)
+            }
+
+            fn to_string(&self) -> String {
+                String::from(self)
+            }
+        }
+    };
+    gen.into()
+}
