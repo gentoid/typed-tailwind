@@ -1,3 +1,9 @@
+pub trait ScreenSizeTrait {
+    fn screen(self, screen: Screen) -> ScreenSize;
+}
+
+pub struct ScreenSize(pub Screen, pub Box<dyn ScreenSizeTrait>);
+
 pub enum Screen {
     Sm,
     Md,
