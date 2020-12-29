@@ -36,7 +36,7 @@ pub struct FontWeight(pub FontWeightVal);
 impl From<&FontWeight> for String {
     fn from(font_weight: &FontWeight) -> String {
         match font_weight {
-            FontWeight(weight) => format!("fornt{}", String::from(weight))
+            FontWeight(weight) => format!("font{}", String::from(weight))
         }
     }
 }
