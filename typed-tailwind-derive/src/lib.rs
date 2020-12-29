@@ -34,8 +34,12 @@ fn impl_hover_state(ast: &syn::DeriveInput) -> TokenStream {
     let name = &ast.ident;
     let gen = quote! {
         impl HoverStateTrait for #name {
-            fn hover(self) -> HoverState {
-                HoverState(Box::new(self))
+            fn hover(&self) -> HoverState {
+                HoverState(self)
+            }
+
+            fn to_string(&self) -> String {
+                String::from(self)
             }
         }
     };
