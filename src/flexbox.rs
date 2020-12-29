@@ -1,3 +1,53 @@
+#[cfg(feature = "seed_support")]
+use seed::virtual_dom::to_classes::ToClasses;
+#[cfg(feature = "seed_support")]
+use typed_tailwind_seed_derive::*;
+
+#[cfg_attr(feature = "seed_support", derive(ToSeedClass))]
+pub struct Flex;
+
+impl From<&Flex> for String {
+    fn from(_: &Flex) -> Self {
+        "flex".into()
+    }
+}
+
+#[cfg_attr(feature = "seed_support", derive(ToSeedClass))]
+pub struct FlexRow;
+
+impl From<&FlexRow> for String {
+    fn from(_: &FlexRow) -> String {
+        "flex-row".into()
+    }
+}
+
+#[cfg_attr(feature = "seed_support", derive(ToSeedClass))]
+pub struct FlexRowReverse;
+
+impl From<&FlexRowReverse> for String {
+    fn from(_: &FlexRowReverse) -> String {
+        "flex-row-reverse".into()
+    }
+}
+
+#[cfg_attr(feature = "seed_support", derive(ToSeedClass))]
+pub struct FlexCol;
+
+impl From<&FlexCol> for String {
+    fn from(_: &FlexCol) -> String {
+        "flex-col".into()
+    }
+}
+
+#[cfg_attr(feature = "seed_support", derive(ToSeedClass))]
+pub struct FlexColReverse;
+
+impl From<&FlexColReverse> for String {
+    fn from(_: &FlexColReverse) -> String {
+        "flex-col-reverse".into()
+    }
+}
+
 pub enum ItemAlign {
     Start,
     End,
