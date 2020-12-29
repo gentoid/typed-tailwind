@@ -1,3 +1,17 @@
+use crate::core::*;
+use typed_tailwind_derive::*;
+
+#[derive(ScreenSize)]
+pub struct Width(Size);
+
+impl From<&Width> for String {
+    fn from(width: &Width) -> Self {
+        match width {
+            Width(size) => format!("width{}", String::from(size)),
+        }
+    }
+}
+
 pub enum Size {
     _0,
     _0_5,
@@ -67,8 +81,8 @@ pub enum Size {
     Max,
 }
 
-impl From<Size> for String {
-    fn from(size: Size) -> Self {
+impl From<&Size> for String {
+    fn from(size: &Size) -> Self {
         use Size::*;
 
         match size {
