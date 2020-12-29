@@ -46,12 +46,12 @@ impl From<&Side> for String {
 
         match kind {
             All => "",
-            X => "-x",
-            Y => "-y",
-            Top => "-t",
-            Bottom => "-b",
-            Right => "-r",
-            Left => "-l",
+            X => "x",
+            Y => "y",
+            Top => "t",
+            Bottom => "b",
+            Right => "r",
+            Left => "l",
         }
         .into()
     }

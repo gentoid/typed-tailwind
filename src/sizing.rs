@@ -13,7 +13,7 @@ pub struct Width(pub Size);
 impl From<&Width> for String {
     fn from(width: &Width) -> Self {
         match width {
-            Width(size) => format!("width{}", String::from(size)),
+            Width(size) => format!("w{}", String::from(size)),
         }
     }
 }
@@ -24,7 +24,7 @@ pub struct MinWidth(pub MinWidthAt);
 impl From<&MinWidth> for String {
     fn from(width: &MinWidth) -> String {
         match width {
-            MinWidth(size) => format!("width{}", String::from(size)),
+            MinWidth(size) => format!("min-w{}", String::from(size)),
         }
     }
 }
@@ -35,7 +35,7 @@ pub struct MaxWidth(pub MaxWidthAt);
 impl From<&MaxWidth> for String {
     fn from(width: &MaxWidth) -> String {
         match width {
-            MaxWidth(size) => format!("width{}", String::from(size)),
+            MaxWidth(size) => format!("max-w{}", String::from(size)),
         }
     }
 }
@@ -47,7 +47,7 @@ pub struct Height(pub Size);
 impl From<&Height> for String {
     fn from(height: &Height) -> Self {
         match height {
-            Height(size) => format!("height{}", String::from(size)),
+            Height(size) => format!("h{}", String::from(size)),
         }
     }
 }
@@ -58,7 +58,7 @@ pub struct MinHeight(pub MinWidth);
 impl From<&MinHeight> for String {
     fn from(height: &MinHeight) -> String {
         match height {
-            MinHeight(size) => format!("height{}", String::from(size)),
+            MinHeight(size) => format!("min-h{}", String::from(size)),
         }
     }
 }
@@ -69,7 +69,7 @@ pub struct MaxHeight(pub MaxWidth);
 impl From<&MaxHeight> for String {
     fn from(height: &MaxHeight) -> String {
         match height {
-            MaxHeight(size) => format!("height{}", String::from(size)),
+            MaxHeight(size) => format!("max-h{}", String::from(size)),
         }
     }
 }
