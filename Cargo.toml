@@ -9,4 +9,12 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-"typed-tailwind-derive" = { path = "./typed-tailwind-derive" }
+typed-tailwind-derive = { path = "./typed-tailwind-derive" }
+seed = { version = "0.8", optional = true }
+typed-tailwind-seed-derive = { path = "./typed-tailwind-seed-derive", optional = true }
+
+[features]
+
+default = []
+
+seed_support = [ "seed", "typed-tailwind-seed-derive" ]
