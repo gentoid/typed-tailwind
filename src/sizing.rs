@@ -2,7 +2,7 @@ use crate::core::*;
 use typed_tailwind_derive::*;
 
 #[derive(ScreenSize)]
-pub struct Width(Size);
+pub struct Width(pub Size);
 
 impl From<&Width> for String {
     fn from(width: &Width) -> Self {
