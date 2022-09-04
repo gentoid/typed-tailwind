@@ -1,8 +1,8 @@
 [package]
 name = "typed-tailwind"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Viktor Lazarev <taurus101v@gmail.com>"]
-edition = "2018"
+edition = "2021"
 
 [lib]
 
@@ -10,7 +10,7 @@ edition = "2018"
 
 [dependencies]
 typed-tailwind-derive = { path = "./typed-tailwind-derive" }
-seed = { version = "0.8", optional = true }
+seed = { version = "0.9", optional = true }
 typed-tailwind-seed-derive = { path = "./typed-tailwind-seed-derive", optional = true }
 
 [features]
